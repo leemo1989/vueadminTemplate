@@ -36,6 +36,7 @@
 
 <script>
 import siderBar from "@/layout/siderbar";
+import { globalStore } from '@/store/modules/global'
 export default {
   name: "layOut",
   data(){
@@ -47,17 +48,15 @@ export default {
   },
   computed: {
     isCollapse() {
-      return this.$store.state.isCollapse
+      return globalStore().isCollapse
     }
   },
   methods:{
-    cgsider(v){
-      console.log(v, 99999999);
-      this.$store.commit('changesider')
+    cgsider(){
+      globalStore().changesider()
     },
-    cglogo(v){
-      console.log(v, 99999999);
-      this.$store.commit('changLogo')
+    cglogo(){
+      globalStore().changLogo()
     }
   }
 }

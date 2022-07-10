@@ -63,6 +63,7 @@
 
 <script>
 import variables from '@/style/variables.scss'
+import { globalStore } from '@/store/modules/global'
 // import { mapGetters } from 'vuex'
 export default {
   name: "siderBar",
@@ -94,14 +95,16 @@ export default {
     //   return path
     // },
     showLogo() {
-      return this.$store.state.sidebarLogo
+      return globalStore().sidebarLogo
+      // return this.$store.state.sidebarLogo
     },
     variables() {
       console.log(variables,44444)
       return variables
     },
     isCollapse() {
-      return this.$store.state.isCollapse
+      return globalStore().isCollapse
+      // return this.$store.state.isCollapse
     }
   }
 }

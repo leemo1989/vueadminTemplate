@@ -5,7 +5,7 @@ import 'element-plus/dist/index.css';
 import router from '@/router/index';
 import './permission';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-import store from "@/store";
+import { store } from "@/store";
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
 const app = createApp(App);
