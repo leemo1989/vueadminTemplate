@@ -5,22 +5,23 @@
       <el-header class="navbar">
         <el-row >
           <el-col :span="12">
-            <el-switch v-model="isCollapse" @change="cgsider" class="drawer-switch" />
+            <el-icon v-if="isCollapse" @click="cgsider"><DArrowRight /></el-icon>
+            <el-icon v-else @click="cgsider"><DArrowLeft/></el-icon>
             <el-button @click="cglogo">logo</el-button>
           </el-col>
           <el-col :span="12" style="text-align: right">
-            <span style="margin-right: 10px">wanglei</span>
             <el-dropdown>
-              <span class="el-dropdown-link">
-                <el-avatar style="margin-top:3px" shape="square" :size="40" fit="cover" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
+              <div style="display: flex;text-align:center;align-items: center;margin-top: 5px">
+                <el-avatar shape="circle" :size="40" fit="cover" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
+                <span style="margin:0 10px">王磊2号</span>
                 <el-icon class="el-icon--right">
                   <arrow-down />
                 </el-icon>
-              </span>
+                </div>
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item>个人信息</el-dropdown-item>
-                  <el-dropdown-item>退出</el-dropdown-item>
+                  <el-dropdown-item @click="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -37,6 +38,7 @@
 <script>
 import siderBar from "@/layout/siderbar";
 import { globalStore } from '@/store/modules/global'
+import router from "@/router";
 export default {
   name: "layOut",
   data(){
@@ -57,6 +59,10 @@ export default {
     },
     cglogo(){
       globalStore().changLogo()
+    },
+    logout(){
+      localStorage.setItem('token','')
+      router.push('/')
     }
   }
 }
