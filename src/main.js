@@ -9,10 +9,12 @@ import { store } from "@/store";
 
 const app = createApp(App);
 
+app.use(ElementPlus, { size: 'small', zIndex: 3000 });
 app.use(router);
 app.use(store);
+
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
-app.use(ElementPlus, { size: 'small', zIndex: 3000 });
+
 app.mount('#app');

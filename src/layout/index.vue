@@ -8,6 +8,11 @@
             <el-icon v-if="isCollapse" @click="cgsider"><DArrowRight /></el-icon>
             <el-icon v-else @click="cgsider"><DArrowLeft/></el-icon>
             <el-button @click="cglogo">logo</el-button>
+  <button @click="toggleDark()">
+<!--    <i inline-block align-middle i="dark:carbon-moon carbon-sun" />-->
+
+<!--    <span class="ml-2">{{ isDark ? 'Dark' : 'Light' }}</span>-->
+  </button>
           </el-col>
           <el-col :span="12" style="text-align: right">
             <el-dropdown>
@@ -39,6 +44,9 @@
 import siderBar from "@/layout/siderbar";
 import { globalStore } from '@/store/modules/global'
 import router from "@/router";
+// import { useToggle } from '@vueuse/shared'
+// import { isDark } from '../../.vitepress/theme/composables/dark'
+import { useDark, useToggle } from '@vueuse/core'
 export default {
   name: "layOut",
   data(){
@@ -61,9 +69,14 @@ export default {
       globalStore().changLogo()
     },
     logout(){
-      localStorage.setItem('token','')
+      localStorage.removeItem('token')
       router.push('/')
     }
+  },
+  setup (){
+    const isDark = useDark()
+    const toggleDark = useToggle(isDark)
+    return {isDark,toggleDark}
   }
 }
 </script>

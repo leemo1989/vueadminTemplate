@@ -8,15 +8,21 @@
             <el-button class="button" text>User Login</el-button>
           </div>
         </template>
-        <el-form :model="form" label-width="auto" status-icon ref="ruleFormRef">
-          <el-form-item label="账号">
-            <el-input v-model="form.user" placeholder="admin" :suffix-icon="User"/>
+        <el-form
+          ref="ruleFormRef"
+          :model="ruleForm"
+          status-icon
+          label-width="auto"
+          @keyup.enter="submitForm"
+          :rules="rules">
+          <el-form-item label="账号" prop="user">
+            <el-input v-model="ruleForm.user" placeholder="admin" :suffix-icon="User"/>
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="form.password" placeholder="admin"/>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="ruleForm.password" placeholder="admin"/>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+            <el-button type="primary" @click="submitForm('ruleFormRef')">登录</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -27,7 +33,10 @@
 
 </template>
 <script>
-import { reactive } from 'vue'
+import { reactive,ref } from 'vue'
+import {Login,getMenu} from '@/api/user'
+import router from '@/router/index';
+// import  { FormInstance, FormRules } from 'element-plus'
 export default {
   name: 'UserLogin',
   data() {
@@ -35,21 +44,56 @@ export default {
     }
   },
   methods:{
-    submitForm(){
-      if (this.form.user === this.form.password){
-        this.$message.success("login success")
-        window.localStorage.setItem('token','123456789')
-        this.$router.push('/dashboard')
-      }
-      console.log('submit!')
+    submitForm(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$message.success("login success")
+          Login().then(res=>{
+            console.log(res,4444);
+            getMenu().then(res=>{
+              console.log(res.data,666)
+              const asyncRouters = ref([])
+              res.data.menus.forEach(t => {
+                console.log('t',t.meta)
+                router.addRoute(t.meta)
+                router.getRoutes()
+              })
+              console.log(router,77777,asyncRouters)
+            })
+          })
+
+          // localStorage.setItem('token','123456789')
+          // 这里需要做的事情，从后端获取token、用户信息、路由权限
+          // 把获取到的用户信息和token存储到store
+          // 把获取的路由用动态加载的方式存储起来
+          // this.$router.push('/dashboard')
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   },
   setup(){
-    const form = reactive({
+    const ruleForm = reactive({
         user: '',
         password: ''
       })
-    return {form}
+
+    const validatePass = (rule, value, callback)=>{
+      console.log(rule,value,888)
+      if (value !== 'admin') {
+        return callback(new Error('请输入正确的密码'))
+      } else {
+        callback()
+      }
+    }
+    const rules =reactive({
+      user: [{required:true,trigger:'blur'}],
+      password: [{ validator: validatePass, trigger: 'blur' }]
+    })
+
+    return {ruleForm,rules}
 
   }
 }
