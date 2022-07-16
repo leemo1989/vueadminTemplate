@@ -11,9 +11,11 @@
 
 <script>
 import {ref} from "vue";
+import router from "@/router";
 export default {
   name: "dashBoard",
   setup() {
+    console.log(11111,router)
     const item = {
       date: '2016-05-02',
       name: 'Tom',

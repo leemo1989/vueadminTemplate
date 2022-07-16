@@ -36,6 +36,7 @@
 import { reactive,ref } from 'vue'
 import {Login,getMenu} from '@/api/user'
 import router from '@/router/index';
+import { globalStore } from '@/store/modules/global'
 // import  { FormInstance, FormRules } from 'element-plus'
 export default {
   name: 'UserLogin',
@@ -53,12 +54,16 @@ export default {
             getMenu().then(res=>{
               console.log(res.data,666)
               const asyncRouters = ref([])
-              res.data.menus.forEach(t => {
-                console.log('t',t.meta)
-                router.addRoute(t.meta)
-                router.getRoutes()
-              })
+              // res.data.menus.forEach(t => {
+              //   console.log('t',t.meta)
+              //   router.addRoute(t.meta)
+              //   router.getRoutes()
+              // })
+
+              localStorage.setItem('token',123456)
+              globalStore().set_routers()
               console.log(router,77777,asyncRouters)
+              router.push('/dashboard')
             })
           })
 
