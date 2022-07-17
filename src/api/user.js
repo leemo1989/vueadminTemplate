@@ -680,7 +680,7 @@ export const menu = {
     ]
 }
 
-export const user = {
+export const userinfo = {
     "user": {
         "ID": 1,
         "CreatedAt": "2022-07-09T19:02:48.575+08:00",
@@ -750,11 +750,12 @@ export const user = {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiOGQzMGYzYWYtOGMxZC00MTg2LWJiZDgtZWY1NWNkMmUyYTk5IiwiSUQiOjEsIlVzZXJuYW1lIjoiYWRtaW4iLCJOaWNrTmFtZSI6Iui2hee6p-euoeeQhuWRmCIsIkF1dGhvcml0eUlkIjo4ODgsIkJ1ZmZlclRpbWUiOjg2NDAwLCJleHAiOjE2NTg0MTcxMTcsImlzcyI6InFtUGx1cyIsIm5iZiI6MTY1NzgxMTMxN30.Kb48V-hRG6_Exq4HeNu4KZvMu0fx6l91axEQ8QRnk68",
     "expiresAt": 1658417117000
 }
-export async function Login() {
+export async function Login(user,pwd) {
+    console.log('data',user,pwd)
   return new Promise(resolve => {
     return resolve({
-      code: 200,
-      data: user
+      code: 0,
+      data: userinfo
     })
   })
 }

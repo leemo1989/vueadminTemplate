@@ -2,7 +2,7 @@ import router from './router'
 
 router.beforeEach((to, from,next) => {
     console.log(from.fullPath,'--->',to.fullPath);
-    const token = window.localStorage.getItem('token')
+    const token = localStorage.getItem('token')
     console.log(token);
     if (to.fullPath !== '/login' && !token ){
         next({'name':'UserLogin'})

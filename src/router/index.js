@@ -10,7 +10,31 @@ const routes = [
     path: '/login',
     name: 'UserLogin',
     component: () => import('@/components/UserLogin')
-  }
+  },
+    {
+        path: '/dashboard',
+        name: 'DashBoard',
+        component: () => import('@/layout/index.vue'),
+        children:[
+          {
+            path: '',
+            name: 'DashBoard',
+            component: () => import('@/view/dashboard.vue')
+          }
+        ]
+      },
+        {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/layout/index.vue'),
+        children:[
+          {
+            path: '',
+            name: 'profile',
+            component: () => import('@/view/profile')
+          }
+        ]
+      }
 ]
 
 const router = createRouter({

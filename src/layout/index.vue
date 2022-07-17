@@ -18,14 +18,14 @@
             <el-dropdown>
               <div style="display: flex;text-align:center;align-items: center;margin-top: 5px">
                 <el-avatar shape="circle" :size="40" fit="cover" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
-                <span style="margin:0 10px">王磊2号</span>
+                <span style="margin:0 10px">{{userStore.userName}}</span>
                 <el-icon class="el-icon--right">
                   <arrow-down />
                 </el-icon>
                 </div>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>个人信息</el-dropdown-item>
+                  <el-dropdown-item ><router-link to="/profile">个人信息</router-link></el-dropdown-item>
                   <el-dropdown-item @click="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -47,6 +47,7 @@ import router from "@/router";
 // import { useToggle } from '@vueuse/shared'
 // import { isDark } from '../../.vitepress/theme/composables/dark'
 import { useDark, useToggle } from '@vueuse/core'
+
 export default {
   name: "layOut",
   data(){
@@ -76,7 +77,9 @@ export default {
   setup (){
     const isDark = useDark()
     const toggleDark = useToggle(isDark)
-    return {isDark,toggleDark}
+    const userStore = globalStore().user
+    console.log(userStore,666666)
+    return {isDark,toggleDark,userStore}
   }
 }
 </script>

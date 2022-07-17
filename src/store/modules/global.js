@@ -6,19 +6,27 @@ export const globalStore = defineStore('globalEnv', {
     return {
       sidebarLogo: false,
       isCollapse: false,
-      routers: []
+      routers: [],
+      user: {
+        userName: "",
+        nickName: "",
+        sideMode: "",
+      }
     };
   },
   // could also be defined as
   // state: () => ({ count: 0 })
   actions: {
+    setUserInfo (user){
+      this.user = user;
+    },
     changLogo () {
       this.sidebarLogo =!this.sidebarLogo;
     },
     changesider (){
       this.isCollapse =!this.isCollapse;
     },
-    set_routers(){
+    setRouters(){
       const m1 = [{
         path: '/dashboard',
         name: 'DashBoard',
