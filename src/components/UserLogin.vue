@@ -61,6 +61,7 @@ const rules =reactive({
 const submitForm = ()=>{
   ruleFormRef.value.validate(async (valid) => {
     if (valid) {
+      console.log(ruleForm,9999999)
       Login(ruleForm.user,ruleForm.password).then(res=>{
         if (res.code ===0){
           ElMessage({
@@ -68,7 +69,7 @@ const submitForm = ()=>{
             message: '登录成功',
             showClose: true,
           })
-          globalStore().setUserInfo(res.data.user)
+          globalStore().setUserInfo(ruleForm.user)
           globalStore().setRouters(res.data.token)
           localStorage.setItem('token',res.data.token)
           router.push('/dashboard')

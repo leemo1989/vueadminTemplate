@@ -77,7 +77,7 @@ export default {
   setup (){
     const isDark = useDark()
     const toggleDark = useToggle(isDark)
-    const userStore = globalStore().user
+    const userStore = globalStore().getUserInfo()
     console.log(userStore,666666)
     return {isDark,toggleDark,userStore}
   }

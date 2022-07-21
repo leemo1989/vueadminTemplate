@@ -2,20 +2,38 @@
   <router-view></router-view>
 </template>
 <script>
-import "pinia";
+import {globalStore} from "@/store/modules/global";
+
 export default {
   name: 'App',
-  created () {
-    console.log(pinia.state,66666666666)
-    // 在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem('store')) {
-      this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))));
-    }
-    // 在页面刷新时将vuex里的信息保存到sessionStorage里
-    window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('store', JSON.stringify(this.$store.state));
+  // created () {
+  //   console.log(this.pinia,'--------',this.$store)
+  //   // 在页面加载时读取sessionStorage里的状态信息
+  //   if (sessionStorage.getItem('store')) {
+  //     this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))));
+  //   }
+  //   // 在页面刷新时将vuex里的信息保存到sessionStorage里
+  //   window.addEventListener('beforeunload', () => {
+  //     sessionStorage.setItem('store', JSON.stringify(this.$store.state));
+  //   });
+  // },
+  setup(){
+    // if (sessionStorage.getItem('store')) {
+    //   this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))));
+    // }
+    globalStore().$subscribe((mutation, state)=>{
+      console.log(mutation,state,5555555);
+      sessionStorage.setItem('store',JSON.stringify(state))
     });
-  },
+  }
+  // watch:(
+  //   this.pinia.state,
+  //   (state) => {
+  //     // persist the whole state to the local storage whenever it changes
+  //     localStorage.setItem('piniaState', JSON.stringify(state))
+  //   },
+  //   { deep: true }
+  // )
   // save the whole state
   // watch(pinia.state, (state) => {
   //   localStorage.setItem('state', JSON.stringify(state)

@@ -14,11 +14,18 @@ export const globalStore = defineStore('globalEnv', {
       }
     };
   },
-  // could also be defined as
-  // state: () => ({ count: 0 })
   actions: {
-    setUserInfo (user){
-      this.user = user;
+    setUserInfo (username){
+      this.user.userName = username;
+      localStorage.setItem('user',this.user);
+    },
+    getUserInfo(){
+      console.log("get-----",this.user,JSON.parse(sessionStorage.getItem('store')));
+      if (this.user.userName == ''){
+        const user = JSON.parse(sessionStorage.getItem('store')).user;
+        return user
+      }
+      return this.user;
     },
     changLogo () {
       this.sidebarLogo =!this.sidebarLogo;
@@ -62,4 +69,5 @@ export const globalStore = defineStore('globalEnv', {
       })
     }
   },
-})
+});
+
