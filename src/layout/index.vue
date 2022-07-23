@@ -41,45 +41,45 @@
 </template>
 
 <script>
-import siderBar from "@/layout/siderbar";
+import siderBar from '@/layout/siderbar'
 import { globalStore } from '@/store/modules/global'
-import router from "@/router";
+import router from '@/router'
 // import { useToggle } from '@vueuse/shared'
 // import { isDark } from '../../.vitepress/theme/composables/dark'
 import { useDark, useToggle } from '@vueuse/core'
 
 export default {
-  name: "layOut",
-  data(){
-    return{
+  name: 'layOut',
+  data () {
+    return {
     }
   },
-  components:{
+  components: {
     siderBar
   },
   computed: {
-    isCollapse() {
+    isCollapse () {
       return globalStore().isCollapse
     }
   },
-  methods:{
-    cgsider(){
+  methods: {
+    cgsider () {
       globalStore().changesider()
     },
-    cglogo(){
+    cglogo () {
       globalStore().changLogo()
     },
-    logout(){
+    logout () {
       localStorage.removeItem('token')
       router.push('/')
     }
   },
-  setup (){
+  setup () {
     const isDark = useDark()
     const toggleDark = useToggle(isDark)
     const userStore = globalStore().getUserInfo()
-    console.log(userStore,666666)
-    return {isDark,toggleDark,userStore}
+    console.log(userStore, 666666)
+    return { isDark, toggleDark, userStore }
   }
 }
 </script>

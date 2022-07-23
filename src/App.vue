@@ -2,7 +2,7 @@
   <router-view></router-view>
 </template>
 <script>
-import {globalStore} from "@/store/modules/global";
+import { globalStore } from '@/store/modules/global'
 
 export default {
   name: 'App',
@@ -17,14 +17,14 @@ export default {
   //     sessionStorage.setItem('store', JSON.stringify(this.$store.state));
   //   });
   // },
-  setup(){
+  setup () {
     // if (sessionStorage.getItem('store')) {
     //   this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))));
     // }
-    globalStore().$subscribe((mutation, state)=>{
-      console.log(mutation,state,5555555);
-      sessionStorage.setItem('store',JSON.stringify(state))
-    });
+    globalStore().$subscribe((mutation, state) => {
+      console.log(mutation, state, 5555555)
+      sessionStorage.setItem('store', JSON.stringify(state))
+    })
   }
   // watch:(
   //   this.pinia.state,

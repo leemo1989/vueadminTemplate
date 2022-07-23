@@ -30,62 +30,61 @@
     </div>
   </div>
 
-
 </template>
 <script setup>
-import { reactive,ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import {Login} from '@/api/user'
+import { Login } from '@/api/user'
 // import router from '@/router/index';
 import { globalStore } from '@/store/modules/global'
-import { User,Lock } from '@element-plus/icons-vue'
-import router from "@/router";
+import { User, Lock } from '@element-plus/icons-vue'
+import router from '@/router'
 // import  { FormInstance, FormRules } from 'element-plus'
 const ruleFormRef = ref(null)
 const ruleForm = reactive({
-    user: '',
-    password: ''
-  })
+  user: '',
+  password: ''
+})
 
-const validatePass = (rule, value, callback)=>{
+const validatePass = (rule, value, callback) => {
   if (value !== 'admin') {
     return callback(new Error('请输入正确的密码'))
   } else {
     callback()
   }
 }
-const rules =reactive({
-  user: [{required:true,trigger:'blur'}],
+const rules = reactive({
+  user: [{ required: true, trigger: 'blur' }],
   password: [{ validator: validatePass, trigger: 'blur' }]
 })
-const submitForm = ()=>{
+const submitForm = () => {
   ruleFormRef.value.validate(async (valid) => {
     if (valid) {
-      console.log(ruleForm,9999999)
-      Login(ruleForm.user,ruleForm.password).then(res=>{
-        if (res.code ===0){
+      console.log(ruleForm, 9999999)
+      Login(ruleForm.user, ruleForm.password).then(res => {
+        if (res.code === 0) {
           ElMessage({
             type: 'success',
             message: '登录成功',
-            showClose: true,
+            showClose: true
           })
           globalStore().setUserInfo(ruleForm.user)
           globalStore().setRouters(res.data.token)
-          localStorage.setItem('token',res.data.token)
+          localStorage.setItem('token', res.data.token)
           router.push('/dashboard')
-        }else{
+        } else {
           ElMessage({
             type: 'error',
-            message: '登录失败:'+ res.code,
-            showClose: true,
+            message: '登录失败:' + res.code,
+            showClose: true
           })
           return false
         }
       })
     } else {
-      return false;
+      return false
     }
-  });
+  })
 }
 </script>
 

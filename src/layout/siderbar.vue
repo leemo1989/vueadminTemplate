@@ -66,14 +66,14 @@ import variables from '@/style/variables.scss'
 import { globalStore } from '@/store/modules/global'
 // import { mapGetters } from 'vuex'
 export default {
-  name: "siderBar",
+  name: 'siderBar',
   props: {
     collapse: {
       type: Boolean,
       required: true
     }
   },
-  data() {
+  data () {
     return {
       title: 'Vue Element Admin',
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
@@ -94,15 +94,15 @@ export default {
     //   }
     //   return path
     // },
-    showLogo() {
+    showLogo () {
       return globalStore().sidebarLogo
       // return this.$store.state.sidebarLogo
     },
-    variables() {
-      console.log(variables,44444)
+    variables () {
+      console.log(variables, 44444)
       return variables
     },
-    isCollapse() {
+    isCollapse () {
       return globalStore().isCollapse
       // return this.$store.state.isCollapse
     }

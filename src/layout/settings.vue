@@ -33,7 +33,7 @@
 export default {
   name: 'seTtings',
   // components: { ThemePicker },
-  data() {
+  data () {
     return {}
   },
   computed: {
@@ -60,10 +60,10 @@ export default {
     //   }
     // },
     sidebarLogo: {
-      get() {
+      get () {
         return this.$store.state.sidebarLogo
       },
-      set(val) {
+      set (val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'sidebarLogo',
           value: val
@@ -72,8 +72,8 @@ export default {
     }
   },
   methods: {
-    cglogo(v){
-      console.log(v, 99999999);
+    cglogo (v) {
+      console.log(v, 99999999)
       this.$store.commit('changLogo')
     }
     // themeChange(val) {

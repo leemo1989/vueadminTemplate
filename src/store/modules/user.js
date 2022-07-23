@@ -6,7 +6,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
  * @param {string} a
  * @param {string} p
  */
-function apiLogin(a, p) {
+function apiLogin (a, p) {
   if (a === 'ed' && p === 'ed') return Promise.resolve({ isAdmin: true })
   if (p === 'ed') return Promise.resolve({ isAdmin: false })
   return Promise.reject(new Error('invalid credentials'))
@@ -16,14 +16,14 @@ export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
     name: '王磊',
-    isAdmin: true,
+    isAdmin: true
   }),
 
   actions: {
-    logout() {
+    logout () {
       this.$patch({
         name: '',
-        isAdmin: false,
+        isAdmin: false
       })
 
       // we could do other stuff like redirecting the user
@@ -33,15 +33,15 @@ export const useUserStore = defineStore({
      * @param {string} user
      * @param {string} password
      */
-    async login(user, password) {
+    async login (user, password) {
       const userData = await apiLogin(user, password)
 
       this.$patch({
         name: user,
-        ...userData,
+        ...userData
       })
-    },
-  },
+    }
+  }
 })
 
 if (import.meta.hot) {

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import router from '@/router/index';
+import router from '@/router/index'
 
 export const globalStore = defineStore('globalEnv', {
   state: () => {
@@ -8,37 +8,37 @@ export const globalStore = defineStore('globalEnv', {
       isCollapse: false,
       routers: [],
       user: {
-        userName: "",
-        nickName: "",
-        sideMode: "",
+        userName: '',
+        nickName: '',
+        sideMode: ''
       }
-    };
+    }
   },
   actions: {
-    setUserInfo (username){
-      this.user.userName = username;
-      localStorage.setItem('user',this.user);
+    setUserInfo (username) {
+      this.user.userName = username
+      localStorage.setItem('user', this.user)
     },
-    getUserInfo(){
-      console.log("get-----",this.user,JSON.parse(sessionStorage.getItem('store')));
-      if (this.user.userName == ''){
-        const user = JSON.parse(sessionStorage.getItem('store')).user;
+    getUserInfo () {
+      console.log('get-----', this.user, JSON.parse(sessionStorage.getItem('store')))
+      if (this.user.userName === '') {
+        const user = JSON.parse(sessionStorage.getItem('store')).user
         return user
       }
-      return this.user;
+      return this.user
     },
     changLogo () {
-      this.sidebarLogo =!this.sidebarLogo;
+      this.sidebarLogo = !this.sidebarLogo
     },
-    changesider (){
-      this.isCollapse =!this.isCollapse;
+    changesider () {
+      this.isCollapse = !this.isCollapse
     },
-    setRouters(){
+    setRouters () {
       const m1 = [{
         path: '/dashboard',
         name: 'DashBoard',
         component: 'layout/index.vue',
-        children:[
+        children: [
           {
             path: '',
             name: 'DashBoard',
@@ -46,10 +46,10 @@ export const globalStore = defineStore('globalEnv', {
           }
         ]
       }]
-      m1.filter((value) => {
-        let child = []  // 子路由数据格式处理
+      m1.forEach((value) => {
+        const child = [] // 子路由数据格式处理
         if (value.children && value.children.length) {
-          value.children.filter((val) => {
+          value.children.forEach((val) => {
             child.push({
               name: val.name,
               path: val.path,
@@ -68,6 +68,5 @@ export const globalStore = defineStore('globalEnv', {
         router.addRoute(val)
       })
     }
-  },
-});
-
+  }
+})
