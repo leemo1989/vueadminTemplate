@@ -1,8 +1,8 @@
 <template>
 <div :style="{background: bgcolor}">
-  <div v-if="showLogo" class="sidebar-logo-container" :class="{'collapse':isCollapse}">
+  <div v-if="globalStore().sidebarLogo" class="sidebar-logo-container" :class="{'collapse':globalStore().isCollapse}">
     <transition name="sidebarLogoFade">
-      <router-link v-if="isCollapse" key="collapse" class="sidebar-logo-link" to="/">
+      <router-link v-if="globalStore().isCollapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo">
         <h1 v-else class="sidebar-title">{{ title }} </h1>
       </router-link>
@@ -17,7 +17,7 @@
         style="border-right: 0"
         class="el-menu-vertical-demo"
       :default-active="activeMenu"
-      :collapse="isCollapse"
+      :collapse="globalStore().isCollapse"
       :background-color=bgcolor
       text-color="#fff"
       :unique-opened="false"
@@ -25,89 +25,28 @@
       :collapse-transition="false"
       mode="vertical"
     >
-      <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
-          <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
+        <el-sub-menu index="1" v-for="route in globalStore().getRouters()" :key="route.path">
+          <template #title>
+            <el-icon><location /></el-icon>
+            <span>{{route.meta.title}}</span>
+          </template>
+          <el-menu-item :index="index" v-for="(r,index) in route.children">
+            <el-icon><setting /></el-icon>
+            <router-link :to="route.path+'/'+r.path">{{r.meta.title}}</router-link>
+          </el-menu-item>
       </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
     </el-menu>
   </el-scrollbar>
 </div>
 </template>
 
-<script>
+<script setup>
 import variables from '@/style/variables.scss'
 import { globalStore } from '@/store/modules/global'
-// import { mapGetters } from 'vuex'
-export default {
-  name: 'siderBar',
-  props: {
-    collapse: {
-      type: Boolean,
-      required: true
-    }
-  },
-  data () {
-    return {
-      title: 'Vue Element Admin',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
-      bgcolor: '#191a23'
-    }
-  },
-  computed: {
-    // ...mapGetters([
-    //   'permission_routes',
-    //   'sidebar'
-    // ]),
-    // activeMenu() {
-    //   const route = this.$route
-    //   const { meta, path } = route
-    //   // if set path, the sidebar will highlight the path you set
-    //   if (meta.activeMenu) {
-    //     return meta.activeMenu
-    //   }
-    //   return path
-    // },
-    showLogo () {
-      return globalStore().sidebarLogo
-      // return this.$store.state.sidebarLogo
-    },
-    variables () {
-      console.log(variables, 44444)
-      return variables
-    },
-    isCollapse () {
-      return globalStore().isCollapse
-      // return this.$store.state.isCollapse
-    }
-  }
-}
+
+const title = 'Vue Element Admin'
+const logo = 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+const bgcolor = '#191a23'
 </script>
 <style lang="scss" scoped>
 .sidebarLogoFade-enter-active {

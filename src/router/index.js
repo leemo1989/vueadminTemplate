@@ -11,18 +11,18 @@ const routes = [
     name: 'UserLogin',
     component: () => import('@/components/UserLogin')
   },
-  {
-    path: '/dashboard',
-    name: 'DashBoard',
-    component: () => import('@/layout/index.vue'),
-    children: [
-      {
-        path: '',
-        name: 'DashBoard',
-        component: () => import('@/view/dashboard.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/dashboard',
+  //   name: 'DashBoard',
+  //   component: () => import('@/layout/index.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'DashBoard',
+  //       component: () => import('@/view/dashboard.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/profile',
     name: 'profile',

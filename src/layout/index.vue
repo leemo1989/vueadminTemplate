@@ -1,6 +1,6 @@
 <template>
   <el-container class="app-wrapper">
-    <siderBar/>
+    <SiderBarA/>
     <el-container>
       <el-header class="navbar">
         <el-row >
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import siderBar from '@/layout/siderbar'
+import SiderBarA from '@/layout/siderbar'
 import { globalStore } from '@/store/modules/global'
 import router from '@/router'
 // import { useToggle } from '@vueuse/shared'
@@ -55,7 +55,7 @@ export default {
     }
   },
   components: {
-    siderBar
+    SiderBarA
   },
   computed: {
     isCollapse () {
